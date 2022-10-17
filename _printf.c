@@ -51,4 +51,4 @@ int _printf(const char *format, ...)
     }
     print_buf(buffer, ibuf), free(buffer), va_end(arguments);
     return (len);
-}
+
