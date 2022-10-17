@@ -12,10 +12,10 @@ int (*find_function(const char *format))(va_list)
 {
     unsigned int i = 0;
     code_f find_f[] = {
-        {"c", print_char},
+        //{"c", print_char},
         {"s", print_string},
         {"i", print_int},
-        {"d", print_dec},
+        /*{"d", print_dec},
         {"r", print_rev},
         {"b", print_bin},
         {"u", print_unsig},
@@ -23,13 +23,13 @@ int (*find_function(const char *format))(va_list)
         {"x", print_x},
         {"X", print_X},
         {"R", print_rot13},
-        {NULL, NULL}
+        {NULL, NULL} */
     };
 
     while (find_f[i].sc)
     {
         if (find_f[i].sc[0] == (*format))
-                return (find_f[i].f)
+                return (find_f[i].f);
         i++;
     }
     return (NULL);
@@ -70,7 +70,7 @@ int _printf(const char *format, ...)
             }
             if (!format[i + 1])
                 return (-1);
-            _putchar(format[i])
+            _putchar(format[i]);
             cprint++;
             if (format[i + 1] == '%')
                 i += 2;
@@ -78,5 +78,5 @@ int _printf(const char *format, ...)
                 i++;        
         }
         va_end(ap);
-        return (cprint)
+        return (cprint);
 }
