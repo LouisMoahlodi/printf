@@ -28,11 +28,13 @@ int print_hex(unsigned int n, unsigned int c)
             len++;
         }
         powten = 1;
-        for (j = 1; <= len - 1; j++)
-            powten *= 16;
-            for (j = 1; <= len; j++)
-            {
-                digit = n / powten;
+        for (j = 1; j <= len - 1; j++)
+	{
+		powten *= 16;
+	}
+	for (j = 1; j <= len; j++)
+	{
+		digit = n / powten;
                 if (digit < 10)
                     _putchar(digit + '0');
                 else

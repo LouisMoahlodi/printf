@@ -9,7 +9,7 @@
  */
 int print_dec(va_list d)
 {
-    int len, powten, j, digit, n count = 0, num;
+    int len, powten, j, digit, n, count = 0, num;
 
     n = va_arg(d, int);
     if (n != 0)
@@ -33,7 +33,7 @@ int print_dec(va_list d)
         {
             digit = n / powten;
             if (n < 0)
-                _putchar(digit * -1) + 48;
+                _putchar((digit * - 1) + 48);
             else 
                 _putchar(digit + '0');
             count++;

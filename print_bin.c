@@ -9,7 +9,7 @@
  */
 int print_bin(va_list b)
 {
-    unsigned int len, powten, j, digit, n, num:
+    unsigned int len, powten, j, digit, n, num;
     int count = 0;
 
     n = va_arg(b, unsigned int);
