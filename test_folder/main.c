@@ -12,6 +12,6 @@ int main(void)
 
 	num = 100;
 	string = "Hello, ALX Team!";
-	_printf("%s is %i.\n", string, num);
+	_printf("%s This code better give me %i.\n" , string, num);
 	return (0);
 }
