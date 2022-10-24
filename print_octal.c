@@ -1,41 +1,42 @@
 #include "main.h"
-/**
- * print_octal - unsigned int argument is converted to unsigned octal
- * @o: unsigned to be converted
- * Descriptions: prints unsigned octal
- * Return: size the output
- */
-int print_octal(va_list o)
-{
-	unsigned int len, powten, j, digit, n, num;
-	int count = 0;
 
-	n = va_arg(o, unsigned int);
-	if (n != 0)
+/**
+ * print_octal - Prints an unsigned number in octal notation
+ * @types: Lista of arguments
+ * @buffer: Buffer array to handle print
+ * @flags:  Calculates active flags
+ * @width: get width
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: Number of chars printed
+ */
+int print_octal(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
+{
+
+	int i = BUFF_SIZE - 2;
+	unsigned long int num = va_arg(types, unsigned long int);
+	unsigned long int init_num = num;
+
+	UNUSED(width);
+
+	num = convert_size_unsgnd(num, size);
+
+	if (num == 0)
+		buffer[i--] = '0';
+
+	buffer[BUFF_SIZE - 1] = '\0';
+
+	while (num > 0)
 	{
-		num = n;
-		len = 0;
-		while (num != 0)
-		{
-			num /= 8;
-			len++;
-		}
-		powten = 1;
-		for (j = 1; j <= len - 1; j++)
-			powten *= 8;
-		for (j = 1; j <= len; j++)
-		{
-			digit = n / powten;
-			_putchar(digit + '0');
-			count++;
-			n -= digit * powten;
-			powten /= 8;
-		}
+		buffer[i--] = (num % 8) + '0';
+		num /= 8;
 	}
-	else
-	{
-		_putchar('0');
-		return (1);
-	}
-	return (count);
+
+	if (flags & F_HASH && init_num != 0)
+		buffer[i--] = '0';
+
+	i++;
+
+	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
 }
