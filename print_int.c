@@ -1,48 +1,44 @@
 #include "main.h"
-/**
- * print_int - Function prints an integer with _putchar
- * @i: integer to print
- * Descriptions: prints digit with _putchar
- * Return: size of the output text
- */
-int print_int(va_list i) 
-{
-	int len, powten, j, digit, n, count = 0, num;
 
-	n = va_arg(i, int);
-	if (n != 0)
+/**
+ * print_int - Print int
+ * @types: Lista of arguments
+ * @buffer: Buffer array to handle print
+ * @flags:  Calculates active flags
+ * @width: get width.
+ * @precision: Precision specification
+ * @size: Size specifier
+ * Return: Number of chars printed
+ */
+int print_int(va_list types, char buffer[],
+	int flags, int width, int precision, int size)
+{
+	int i = BUFF_SIZE - 2;
+	int is_negative = 0;
+	long int n = va_arg(types, long int);
+	unsigned long int num;
+
+	n = convert_size_number(n, size);
+
+	if (n == 0)
+		buffer[i--] = '0';
+
+	buffer[BUFF_SIZE - 1] = '\0';
+	num = (unsigned long int)n;
+
+	if (n < 0)
 	{
-		if (n < 0)
-		{
-			_putchar('-');
-			count++;
-		}
-		num = n;
-		len = 0;
-		while (num != 0)
-		{
-			num /= 10;
-			len++;
-		}
-		powten = 1;
-		for (j = 1; j <= len - 1; j++)
-			powten *= 10;
-		for (j = 1; j <= len; j++)
-		{
-			digit = n / powten;
-			if (n < 0)
-				_putchar((digit * -1) + 48);
-			else
-				_putchar(digit + '0');
-			count++;
-			n -= digit * powten;
-			powten /= 10;
-		}
+		num = (unsigned long int)((-1) * n);
+		is_negative = 1;
 	}
-	else
+
+	while (num > 0)
 	{
-		_putchar('0');
-		return (1);
+		buffer[i--] = (num % 10) + '0';
+		num /= 10;
 	}
-	return (count);
+
+	i++;
+
+	return (write_number(is_negative, i, buffer, flags, width, precision, size));
 }
